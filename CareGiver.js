@@ -1,4 +1,4 @@
-exports.handler = (event, context) => {
+exports.handler = (event, context, callback) => {
 	
 	//try catch is for potential errors in code
 	try {
@@ -25,6 +25,13 @@ exports.handler = (event, context) => {
 			case "IntentRequest":
 				// Intent Request *** called if specified call is made to intent
 				console.log('INTENT REQUEST')
+				context.succeed(
+					handleIntent(event.request, event.session),
+						(sessionAttributes, speechletResponse=>
+							callback(null, buildResponse(sessionAttributes, speechletResponse));
+						});
+					);
+
 				break;
 
 			case "SessionEndedRequest":
@@ -60,4 +67,24 @@ generateResponse = (sessionAttributes, speechletResponse) => {
 		sessionAttributes: sessionAttributes,
 		response: speechletResponse
 	}
+}
+
+handleIntent = (request, session, callback) => {
+	console.log(`onIntent requestId=${intentRequest.requestId},
+										sessionId=${session.sessionId}`);
+	const intent = intentRequest.intent;
+	const intentName = intent.name;
+
+	if (intentName == /* INTENT NAME HERE */) {
+		// call intent function
+		// function(intent, session, callback) or
+		// function(callback)
+	} else if (intentName === 'AMAZON.HelpIntent') {
+        // function here
+    } else if (intentName === 'AMAZON.StopIntent' || intentName === 'AMAZON.CancelIntent') {
+        // function here
+    } else {
+        throw new Error('Invalid intent');
+    }
+
 }
