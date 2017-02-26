@@ -79,9 +79,6 @@ exports.handler = function(event, context, callback) {
 						});
 					    for(var i = 0; i< params.Item.medicine.length; i++){
 					        if(params.Item.medicine[i]==event.request.intent.slots.Drugs.value){
-				            console.log(params.Item.medicine[i])
-				            console.log(event.request.intent.slots.Drugs.value)
-				            console.log("85")
 					        sendString = "You have already added the drug " + event.request.intent.slots.Drugs.value;
 					        context.succeed(
 						       	generateResponse(
