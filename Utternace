@@ -11,7 +11,14 @@ GetMedicineInfo should i take
 GetMedicineInfo do I need to take
 GetMedicineInfo what do i need
 
-TookMedicine Have I taken my medicine
-TookMedicine Do I need to take my medicine
-TookMedicine Is there still medicine I need to take
-TookMedicine Do I need to take medicine
+checkMedStatus Have I taken my medicine
+checkMedStatus Do I need to take my medicine
+checkMedStatus Is there still medicine I need to take
+checkMedStatus Do I need to take medicine
+
+DeleteMedicineInfo i don't to take {Drugs}
+DeleteMedicineInfo i don't need {Drugs}
+DeleteMedicineInfo i stopped taking {Drugs}
+DeleteMedicineInfo i'd done with {Drugs}
+DeleteMedicineInfo remove {Drugs}
+DeleteMedicineInfo delete {Drugs}
