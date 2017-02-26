@@ -10,11 +10,10 @@ GetMedicineInfo what should I take
 GetMedicineInfo should i take
 GetMedicineInfo do I need to take
 GetMedicineInfo what do i need
-
-checkMedStatus Have I taken my medicine
-checkMedStatus Do I need to take my medicine
-checkMedStatus Is there still medicine I need to take
-checkMedStatus Do I need to take medicine
+GetMedicineInfo Have I taken my medicine
+GetMedicineInfo Do I need to take my medicine
+GetMedicineInfo Is there still medicine I need to take
+GetMedicineInfo Do I need to take medicine
 
 DeleteMedicineInfo i don't to take {Drugs}
 DeleteMedicineInfo i don't need {Drugs}
