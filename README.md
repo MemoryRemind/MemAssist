@@ -60,13 +60,13 @@ Example test:
         "You need Tylenol"
 "Add Exelon"
 
-        "You need Tyenol and Exelon"
+        "You need Tylenol and Exelon"
 "I will need Donepezil"
 
-        "You need Tyenol Donepezil and Exelon"
+        "You need Tylenol Donepezil and Exelon"
 "Alexa what should I take"
 
-        "You need Tyenol Donepezil and Exelon"
+        "You need Tylenol Donepezil and Exelon"
 "I just took Tylenol"
 
         "I have removed Tylenol from the list of drugs you need"
