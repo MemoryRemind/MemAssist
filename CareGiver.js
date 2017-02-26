@@ -26,8 +26,7 @@ exports.handler = (event, context, callback) => {
 				console.log('INTENT REQUEST')
 				context.succeed(
 					handleIntent(event.request, event.session),
-						(sessionAttributes, speechletResponse=>
-							callback(null, buildResponse(sessionAttributes, speechletResponse));
+						(sessionAttributes, speechletResponse=>callback(null, buildResponse(sessionAttributes, speechletResponse));
 						});
 					);
 
