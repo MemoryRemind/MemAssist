@@ -53,7 +53,20 @@ Build Instructions:
 
 17) to run skill, link amazon device with the Alexa phone app, then say "Alexa, open butler"
 
+Example test:
 
+"Alexa, I need Tylenol"
+        "You need Tylenol"
+"Add Exelon"
+        "You need Tyenol and Exelon"
+"I will need Donepezil"
+        "You need Tyenol Donepezil and Exelon"
+"Alexa what should I take"
+        "You need Tyenol Donepezil and Exelon"
+"I just took Tylenol"
+        "I have removed Tylenol from the list of drugs you need"
+"Is there still medicine I need to take"
+        "You need Donepezil and Exelon"
 
 More info on developing for Alexa
 
