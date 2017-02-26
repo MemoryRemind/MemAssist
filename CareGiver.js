@@ -127,7 +127,7 @@ exports.handler = function(event, context, callback) {
 								callback(null,data);
 							}
 						});
-						sendString = "You still need to take ";
+						sendString = "You need to take ";
 						for(var i = 0; i < params.Item.medicine.length - 1; i++) {
 							sendString += params.Item.medicine[i] + " ";
 						}
