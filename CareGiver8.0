@@ -87,7 +87,7 @@ exports.handler = function(event, context, callback) {
 					        		)
     		    				)
         					noDuplicateDrugFlag = false;
-						break;
+        					break;
 					        }
 					    }
 					    if(noDuplicateDrugFlag){
