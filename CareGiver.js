@@ -79,7 +79,7 @@ generateResponse = (sessionAttributes, speechletResponse) => {
 	}
 }
 
-handleIntent = (request, session, callback) => {
+handleIntent = (intentRequest, session, callback) => {
 	console.log(`onIntent requestId=${intentRequest.requestId}, sessionId=${session.sessionId}`);
 	const intent = intentRequest.intent;
 	const intentName = intent.name;
@@ -123,4 +123,26 @@ getInfo = (intent, session, callback) => {
 	callback(sessionAttributes, buildSpeechletResponse(cardTitle, response, reprompt, endSession));
 }
 
+setAlert = (intent, session, callback) => {
+	// Set alert for an event (eg. medicine, visits)
+	const cardTitle = intent.name; // should probably say what alert will be
+	const timeSlot = intent.slots.Time; // has builtin for this i believe?
+	const actionSlot = intent.slots.Action; // what reminder is for basically
+	let sessionAttributes = {};
+	let response = '';
+
+	if (actionSlot) {
+		if (timeSlot) {
+			// possibly change sessionAttributes?
+			// or an array stroed in js section of program?
+			// OR maybe a different file (if possible)?
+		} else {
+			response = 'Please specify a date and time.';
+		}
+	} else if (timeSlot) {
+		response = 'Please specify an event.';
+	} else {
+		response = 'Please specify an event along with a date and time.';
+	}
+}
 /// /           / ///
