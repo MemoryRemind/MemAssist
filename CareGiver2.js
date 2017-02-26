@@ -40,12 +40,12 @@ exports.handler = (event, context) => {
                     case "TookMedicine":
                         sendString = tookMedicine? "You have taken your medicine": "You have not taken your medicine"
                         context.succeed(
-							generateResponse(
-								{},
-								buildSpeechletResponse(sendString,true)
-							)
-						)
-						break;
+				generateResponse(
+				{},
+				buildSpeechletResponse(sendString,true)
+				)
+			)
+			break;
                     
                     case "UpdateMedicine":
                         var index = event.sessionAttributes.size();//NOTE replace with array struct
@@ -60,11 +60,11 @@ exports.handler = (event, context) => {
                         }
                         
                         context.succeed(
-							generateResponse(
-								{},
-								buildSpeechletResponse(sendString,true)
-							)
-						)
+				generateResponse(
+					{},
+					buildSpeechletResponse(sendString,true)
+					)
+				)
                         
                     break;
                     
