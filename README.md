@@ -39,7 +39,7 @@ Build Instructions:
 
 12) Add a new skill
 
-13) Set name, invocation name
+13) Set name and invocation name to Butler
  
 14) In Intent Schema copy over intentSchema.json, add a slot type corresponding to medicines.txt, and in Sample Utterances copy over utterances.txt
 
@@ -47,4 +47,4 @@ Build Instructions:
 
 16) Once Interaction model has finished compiling, you are ready to test the skill.
 
-17) to test skill, link amazon device with the Alexa phone app, then say "Alexa, open (Invocation Name)"
+17) to run skill, link amazon device with the Alexa phone app, then say "Alexa, open butler"
