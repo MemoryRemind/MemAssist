@@ -22,3 +22,10 @@ DeleteMedicineInfo i stopped taking {Drugs}
 DeleteMedicineInfo i'd done with {Drugs}
 DeleteMedicineInfo remove {Drugs}
 DeleteMedicineInfo delete {Drugs}
+DeleteMedicineInfo I have already taken {Drugs}
+DeleteMedicineInfo I already took {Drugs}
+DeleteMedicineInfo I am taking {Drugs}
+DeleteMedicineInfo I'm taking {Drugs}
+DeleteMedicineInfo taking {Drugs}
+DeleteMedicineInfo i just took {Drugs}
+DeleteMedicineInfo just took {Drugs}
