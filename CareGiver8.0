@@ -4,7 +4,7 @@ const docClient = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'});
 var params = {
 		Item: {
 			medicine: [],
-			userID: 2
+			userID: 1
 			    
 		},
 		TableName: 'medicalinfo',
@@ -69,14 +69,32 @@ exports.handler = function(event, context, callback) {
 				switch(event.request.intent.name) {
 				
 					case "StoreMedicineInfo": 
-					/*	docClient.get(params, function(err,data){
+					    //console.log("you are here");
+					    docClient.get(params, function(err,data){
 							if(err){
 								callback(err,null);
 							}else{
 								callback(null,data);
-						}
-						});*/
-					    //console.log("you are here");
+							}
+						});
+					    for(var i = 0; i< params.Item.medicine.length; i++){
+					        if(params.Item.medicine[i]==event.request.intent.slots.Drugs.value){
+				            console.log(params.Item.medicine[i])
+				            console.log(event.request.intent.slots.Drugs.value)
+				            console.log("85")
+					        sendString = "You have already added the drug " + event.request.intent.slots.Drugs.value;
+					        context.succeed(
+						       	generateResponse(
+						       		{},
+							       	buildSpeechletResponse(sendString,false)
+					        		)
+    		    				)
+        					break;
+					        }
+					    }
+					    
+					    
+					    
 					    params.Item.medicine[params.Item.medicine.length] = event.request.intent.slots.Drugs.value;
 						//medicine[medicine.length] = event.intent.slots.Drugs.value;
 						//console.log("you are leaving");
@@ -111,8 +129,6 @@ exports.handler = function(event, context, callback) {
 							sendString += params.Item.medicine[i] + " and ";
 						}
 						sendString += params.Item.medicine[params.Item.medicine.length-1];
-						//console.log(sendString.length)
-						console.log("115")
 						if(params.Item.medicine.length==0)
 						sendString = "You do not need any medications";
 						context.succeed(
