@@ -16,10 +16,7 @@ exports.handler = (event, context, callback) => {
 				context.succeed(
 					generateResponse(
 						{},
-						buildSpeechletResponse(
-							event.request.intent.name,
-							"Welcome to Ferris' example Alexa. This runs on Lambda",
-							"", true)
+						buildSpeechletResponse(event.request.intent.name, "Welcome to Ferris' example Alexa. This runs on Lambda", "", true)
 						)
 					)
 				break;
@@ -84,8 +81,7 @@ generateResponse = (sessionAttributes, speechletResponse) => {
 }
 
 handleIntent = (request, session, callback) => {
-	console.log(`onIntent requestId=${intentRequest.requestId},
-										sessionId=${session.sessionId}`);
+	console.log(`onIntent requestId=${intentRequest.requestId}, sessionId=${session.sessionId}`);
 	const intent = intentRequest.intent;
 	const intentName = intent.name;
 
@@ -125,8 +121,7 @@ getInfo = (intent, session, callback) => {
 		response = 'Please specify a person.';
 	}
 
-	callback(sessionAttributes, buildSpeechletResponse(cardTitle,
-				response, reprompt, endSession));
+	callback(sessionAttributes, buildSpeechletResponse(cardTitle, response, reprompt, endSession));
 }
 
 /// /           / ///
