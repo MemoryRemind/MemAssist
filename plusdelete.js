@@ -155,7 +155,7 @@ exports.handler = function(event, context, callback) {
 								buildSpeechletResponse("Deleted " + deleted, false)
 							)
 						)
-
+			break;
 					default:
 					    context.succeed(
 							generateResponse(
