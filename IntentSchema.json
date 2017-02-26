@@ -1,0 +1,19 @@
+{
+  "intents": [
+    {
+    	"intent": "StoreMedicineInfo",
+      		"slots": [
+        		{
+          			"name": "Drugs",
+          			"type": "medication"
+        		}
+      		]
+  	},
+    {
+    	"intent": "GetMedicineInfo" 
+    },
+    {
+      "intent": "TookMedicine"
+    }
+  ]
+}
