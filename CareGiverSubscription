@@ -145,47 +145,41 @@ exports.handler = function(event, context, callback) {
 						break;
                     
                     case "DeleteMedicineInfo":
-                        console.log("148")
-                        var notInList = true;
-                        /*docClient.get(params, function(err,data){
+						docClient.get(params, function(err, data) {
 							if(err){
 								callback(err,null);
 							}else{
 								callback(null,data);
 							}
-						});*/
-						console.log("157")
-						for(var i = 0; i < params.Item.medicine.length; i++){
-						    console.log("a")
-						    if(params.Items.medicine[0]==event.request.intent.slots.Drugs.value){
-						        console.log("A")
-						        pop(params.Items.medicine[i]);
-						        notInList = false;
-						        sendString = event.request.intent.slots.Drugs.value + "has been removed from your list of medications";
-						    }
+						});
+
+						var d = params.Item.medicine.indexOf(event.request.intent.slots.Drugs.value);
+
+						var n = [];
+
+						var deleted = params.Item.medicine[d];
+
+						for (var j = 0; j < params.Item.medicine.length; j++) {
+							if (j != d) n.push(params.Item.medicine[j]);
 						}
-						if(notInList)
-						    sendString = event.request.intent.slots.Drugs.value + "is not in your list of medications";
+
+						params.Item.medicine = n;
+
 						docClient.put(params, function(err, data) {
 	                    	if(err) {
                 			callback(err, null);
-                    		}else {
+                    		} else {
                     			callback(null, data);
 	                    	}
-	                        });
-                        break;
-                    
-					default:
-					    context.succeed(
+	                    });
+
+	                    context.succeed(
 							generateResponse(
 								{},
-								buildSpeechletResponse("I'm sorry. I do not understand. Please try again",true)
+								buildSpeechletResponse("Deleted " + deleted, false)
 							)
 						)
-						//throw "Invalid intent"
-				}
-
-				break;
+			            break;
 
 
 
