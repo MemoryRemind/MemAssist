@@ -16,9 +16,6 @@
     	"intent": "TookMedicine"
     },
     {
-    	"intent": "checkMedStatus"
-    },
-    {
     	"intent": "DeleteMedicineInfo",
       		"slots": [
         		{
