@@ -15,7 +15,7 @@ Coming Soon:
 
 +We seek to link to a medical database to support a much greater number of drug names
 
-+Enhaunced functionality so a caretaker can input a list of medication once and the patient can input his medications as he takes them, and the list will keep track each day if the patient has taken all the required medication, and provide a notification if the patient fails to take all the required medication
++Enhanced functionality so a caretaker can input a list of medication once and the patient can input his medications as he takes them, and the list will keep track each day if the patient has taken all the required medication, and provide a notification if the patient fails to take all the required medication
 
 Build Instructions:
 
