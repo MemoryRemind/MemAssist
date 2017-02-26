@@ -1,0 +1,12 @@
+StoreMedicineInfo i need to take {Drugs}
+StoreMedicineInfo i need {Drugs}
+StoreMedicineInfo i take {Drugs}
+StoreMedicineInfo i will take {Drugs}
+StoreMedicineInfo i must take {Drugs}
+StoreMedicineInfo i should take {Drugs}
+
+GetMedicineInfo what medicine do I need
+GetMedicineInfo what should I take
+GetMedicineInfo should i take
+GetMedicineInfo do I need to take
+GetMedicineInfo what do i need
