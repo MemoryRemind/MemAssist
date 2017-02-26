@@ -4,7 +4,7 @@ const docClient = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'});
 var params = {
 		Item: {
 			medicine: [],
-			userID: 1
+			userID: 2
 			    
 		},
 		TableName: 'medicalinfo',
@@ -111,6 +111,10 @@ exports.handler = function(event, context, callback) {
 							sendString += params.Item.medicine[i] + " and ";
 						}
 						sendString += params.Item.medicine[params.Item.medicine.length-1];
+						//console.log(sendString.length)
+						console.log("115")
+						if(params.Item.medicine.length==0)
+						sendString = "You do not need any medications";
 						context.succeed(
 							generateResponse(
 								{},
