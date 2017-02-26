@@ -55,7 +55,7 @@ Build Instructions:
 
 
 
-More info
+More info on developing for Alexa
 
 https://developer.amazon.com/alexa-skills-kit/alexa-skill-quick-start-tutorial
 
