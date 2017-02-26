@@ -55,6 +55,14 @@ Build Instructions:
 
 
 
+More info
+
+https://developer.amazon.com/alexa-skills-kit/alexa-skill-quick-start-tutorial
+
+https://developer.amazon.com/public/solutions/alexa/alexa-voice-service/getting-started-with-the-alexa-voice-service
+
+
+
 Contributors
 
 https://github.com/MemoryRemind/MemAssist/blob/master/CONTRIBUTION.md
