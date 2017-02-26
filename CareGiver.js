@@ -164,7 +164,7 @@ exports.handler = function(event, context, callback) {
 							if (j != d) n.push(params.Item.medicine[j]);
 						}
 
-                        if (n.length==params.Item.medicine){
+                        if (n.length==params.Item.medicine.length){
                             deleted = "You are not taking that medication";
                             context.succeed(
 							    generateResponse(
