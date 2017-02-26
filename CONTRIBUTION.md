@@ -6,6 +6,6 @@ Reporting bugs:
 
 - email a developer (ferris.dweik@gmail.com, rnai2@illinois.edu, tsxiang2@illinois.edu)
 
-Any proposed new features should add to functionallity in a meaningful way
+Any proposed new features should add to functionallity in a meaningful way. Pull requests are always welcome. If you contribute your name will be credited in CONTRIBUTORS.ms
 
-Follow commom etiquite for coding conventions
+Follow commom etiquite for coding conventions.
