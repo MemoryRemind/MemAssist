@@ -15,7 +15,7 @@ exports.handler = (event, context, callback) => {
 				console.log('LAUNCH REQUEST')
 				context.succeed(
 					generateResponse(
-						{},
+						{"medicine": []},
 						buildSpeechletResponse(event.request.intent.name, "Welcome to Ferris' example Alexa. This runs on Lambda", "", true)
 						)
 					)
@@ -60,12 +60,12 @@ buildSpeechletResponse = (title, outputText, repromptText, shouldEndSession) => 
         //     title: `SessionSpeechlet - ${title}`,
         //     content: `SessionSpeechlet - ${output}`,
         // },
-        reprompt: {
-            outputSpeech: {
-                type: 'PlainText',
-                text: repromptText,
-            },
-        },
+		reprompt: {
+		    outputSpeech: {
+			type: 'PlainText',
+			text: repromptText,
+		    },
+		},
 		shouldEndSession
 	};
 }
@@ -89,60 +89,62 @@ handleIntent = (intentRequest, session, callback) => {
 		// function(intent, session, callback) or
 		// function(callback)
 	// }
-	if (intentName == 'getInfo') {
-		getInfo(intent, session, callback);
+	if (intentName == 'getMeds') {
+		getMeds(intent, session, callback);
 	} else if (intentName === 'AMAZON.HelpIntent') {
         // function here
-    } else if (intentName === 'AMAZON.StopIntent' || intentName === 'AMAZON.CancelIntent') {
+		//pass;
+	} else if (intentName === 'AMAZON.StopIntent' || intentName === 'AMAZON.CancelIntent') {
         // function here
-    } else {
+		//pass;
+	} else {
         throw new Error('Invalid intent');
-    }
+	}
 
 }
 
 
 /// /  intents  / ///
 
-getInfo = (intent, session, callback) => {
+getMeds = (intent, session, callback) => {
 	const cardTitle = intent.name;
-	const personSlot = intent.slots.Person;
 	const endSession = false;
 	const reprompt = '';
-	let sessionAttributes = {};
+	let sessionAttributes = session.attributes;
 	let response = '';
 
-	if (personSlot) {
+	if (sessionAttributes.length > 0) {
 		const person = personSlot.value;
-
-		response = '${person} is an American hero.';
+		
+		response = "";
+		
+		for (i = 0; i < sessionAttributes.length; i++) {
+			med = sessionAttributes[i];
+			response.concat("${med} ");
+		}
 	} else {
-		response = 'Please specify a person.';
+		response = "No medications";
 	}
 
 	callback(sessionAttributes, buildSpeechletResponse(cardTitle, response, reprompt, endSession));
 }
 
-setAlert = (intent, session, callback) => {
-	// Set alert for an event (eg. medicine, visits)
-	const cardTitle = intent.name; // should probably say what alert will be
-	const timeSlot = intent.slots.Time; // has builtin for this i believe?
-	const actionSlot = intent.slots.Action; // what reminder is for basically
-	let sessionAttributes = {};
+addMed = (intent, session, callback) => {
+	const cardTitle = intent.name;
+	const medSlot = intent.slots.Medicine;
+	const endSession = false;
+	const reprompt = '';
+	let sessionAttributes = session.attributes;
 	let response = '';
-
-	if (actionSlot) {
-		if (timeSlot) {
-			// possibly change sessionAttributes?
-			// or an array stroed in js section of program?
-			// OR maybe a different file (if possible)?
-		} else {
-			response = 'Please specify a date and time.';
-		}
-	} else if (timeSlot) {
-		response = 'Please specify an event.';
+	
+	if (medSlot) {
+		const med = medSlot.value;
+		sessionAttributes.push(med);
+		response = "Added ${med}.";
 	} else {
-		response = 'Please specify an event along with a date and time.';
+		response = "I don't understand.";
 	}
+	
+	callback(sessionAttributes, buildSpeechletResponse(cardTitle, response, reprompt, endSession));
 }
 /// /           / ///
