@@ -15,6 +15,8 @@ Coming Soon:
 
 +We seek to link to a medical database to support a much greater number of drug names
 
+
+
 Build Instructions:
 
 1) Create Amazon Work Station account
@@ -50,6 +52,14 @@ Build Instructions:
 16) Once Interaction model has finished compiling, you are ready to test the skill.
 
 17) to run skill, link amazon device with the Alexa phone app, then say "Alexa, open butler"
+
+
+
+Contributors
+
+https://github.com/MemoryRemind/MemAssist/blob/master/CONTRIBUTION.md
+
+
 
 MIT License
 
