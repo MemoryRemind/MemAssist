@@ -17,7 +17,9 @@ exports.handler = (event, context, callback) => {
 					generateResponse(
 						{},
 						buildSpeechletResponse(
-							"Welcome to Ferris' example Alexa. This runs on Lambda",true)
+							event.request.intent.name,
+							"Welcome to Ferris' example Alexa. This runs on Lambda",
+							"", true)
 						)
 					)
 				break;
@@ -49,15 +51,27 @@ exports.handler = (event, context, callback) => {
 }
 
 // Helpers
-buildSpeechletResponse = (outputText, shouldEndSession) => {
+buildSpeechletResponse = (title, outputText, repromptText, shouldEndSession) => {
 
 	return {
 		outputSpeech: {
 			type: "PlainText",
 			text: outputText
 		},
-		shouldEndSession: shouldEndSession
-	}
+		// Add for ability to communicate with phone app
+		// card: {
+        //     type: 'Simple',
+        //     title: `SessionSpeechlet - ${title}`,
+        //     content: `SessionSpeechlet - ${output}`,
+        // },
+        reprompt: {
+            outputSpeech: {
+                type: 'PlainText',
+                text: repromptText,
+            },
+        },
+		shouldEndSession
+	};
 }
 
 generateResponse = (sessionAttributes, speechletResponse) => {
@@ -75,10 +89,13 @@ handleIntent = (request, session, callback) => {
 	const intent = intentRequest.intent;
 	const intentName = intent.name;
 
-	if (intentName == /* INTENT NAME HERE */) {
+	// if (intentName == /* INTENT NAME HERE */) {
 		// call intent function
 		// function(intent, session, callback) or
 		// function(callback)
+	// }
+	if (intentName == 'getInfo') {
+		getInfo(intent, session, callback);
 	} else if (intentName === 'AMAZON.HelpIntent') {
         // function here
     } else if (intentName === 'AMAZON.StopIntent' || intentName === 'AMAZON.CancelIntent') {
@@ -88,3 +105,28 @@ handleIntent = (request, session, callback) => {
     }
 
 }
+
+
+/// /  intents  / ///
+
+getInfo = (intent, session, callback) => {
+	const cardTitle = intent.name;
+	const personSlot = intent.slots.Person;
+	const endSession = false;
+	const reprompt = '';
+	let sessionAttributes = {};
+	let response = '';
+
+	if (personSlot) {
+		const person = personSlot.value;
+
+		response = '${person} is an American hero.';
+	} else {
+		response = 'Please specify a person.';
+	}
+
+	callback(sessionAttributes, buildSpeechletResponse(cardTitle,
+				response, reprompt, endSession));
+}
+
+/// /           / ///
