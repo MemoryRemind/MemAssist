@@ -47,7 +47,7 @@ exports.handler = (event, context) => {
 			)
 			break;
                     
-                    case "UpdateMedicine":
+                    case "UpdateMedicine": //FIXME variables
                         var index = event.sessionAttributes.size();//NOTE replace with array struct
                         for(; index >0; index --){
                             medicineTaken.add(sessionAttributes[index]); //TODO replace pseudocode
@@ -106,6 +106,40 @@ exports.handler = (event, context) => {
 }
 
 // Helpers
+
+//Copied from https://github.com/bignerdranch/developing-alexa-skills-solutions/blob/master/3_sessionsAndVUI/solution/madlibbuilder/index.js
+//see https://github.com/bignerdranch/developing-alexa-skills-solutions/blob/master/3_sessionsAndVUI/solution/madlibbuilder/madlib_helper.js
+//https://github.com/bignerdranch/developing-alexa-skills-solutions/blob/master/coursebook/mlbPersistence_Chapter.pdf
+/*skillService.intent("madlibIntent", {
+    "slots": {
+        "STEPVALUE": "STEPVALUES"
+    },
+    "utterances": ["{new|start|create|begin|build} {|a|the} madlib", "{-|STEPVALUE}"]
+},
+
+function (request, response) {
+      var stepValue = request.slot("STEPVALUE");
+      var madlibHelper = getMadlibHelper(request);
+      madlibHelper.started = true;
+      if (stepValue !== undefined) {
+          madlibHelper.getStep().value = stepValue;
+      }
+      if (madlibHelper.completed()) {
+          var completedMadlib = madlibHelper.buildMadlib();
+          response.card(madlibHelper.currentMadlib().title, completedMadlib);
+          response.say("The madlib is complete! I will now read it to you. " + completedMadlib);
+          response.shouldEndSession(true);
+      } else {
+          if (stepValue !== undefined) {
+              madlibHelper.currentStep++;
+          }
+          response.say("Give me " + madlibHelper.getPrompt());
+          response.reprompt("I didn't hear anything. Give me " + madlibHelper.getPrompt() + " to continue.");
+          response.shouldEndSession(false);
+      }
+      response.session(MADLIB_BUILDER_SESSION_KEY, madlibHelper);
+  }*/
+
 buildSpeechletResponse = (outputText, shouldEndSession) => {
 
 	return {
