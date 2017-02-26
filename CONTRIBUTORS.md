@@ -1,5 +1,5 @@
-Ferris Dweik - Linking to Amazon DynamoDB, CareGiver.js.js
+Ferris Dweik - Linking to Amazon DynamoDB, butler.js
 
-Richard Nai - CareGiver.js
+Richard Nai - butler.js
 
-Timothy Xiang - CareGiver.js
+Timothy Xiang - butler.js
