@@ -34,7 +34,7 @@ exports.handler = function(event, context, callback) {
 	});
 
 	var sendString = "";
-
+    
 
 
 	// Try catch is for potential errors in code
@@ -64,7 +64,7 @@ exports.handler = function(event, context, callback) {
 			case "IntentRequest":
 				// Intent Request *** called if specified call is made to intent
 				console.log('INTENT REQUEST')
-
+                var noDuplicateDrugFlag = true;
 				//checks specific intent requests
 				switch(event.request.intent.name) {
 				
@@ -86,18 +86,21 @@ exports.handler = function(event, context, callback) {
 							       	buildSpeechletResponse(sendString,false)
 					        		)
     		    				)
-        					break;
+        					noDuplicateDrugFlag = false;
 					        }
 					    }
-					    
+					    if(noDuplicateDrugFlag){
+					    sendString = "You need to take "
 					    
 					    
 					    params.Item.medicine[params.Item.medicine.length] = event.request.intent.slots.Drugs.value;
 						//medicine[medicine.length] = event.intent.slots.Drugs.value;
 						//console.log("you are leaving");
 						for(var i = 0; i < params.Item.medicine.length - 1; i++) {
-							sendString += params.Item.medicine[i] + " and ";
+							sendString += params.Item.medicine[i] + " ";
 						}
+						if(params.Item.medicine.length!=1)
+						sendString += "and ";
 						sendString += params.Item.medicine[params.Item.medicine.length-1];
 						context.succeed(
 							generateResponse(
@@ -112,6 +115,7 @@ exports.handler = function(event, context, callback) {
                     			callback(null, data);
 	                    	}
 	                        });
+					    }
 						break;
 
 					case "GetMedicineInfo":
@@ -122,9 +126,12 @@ exports.handler = function(event, context, callback) {
 								callback(null,data);
 							}
 						});
+						sendString = "You still need to take ";
 						for(var i = 0; i < params.Item.medicine.length - 1; i++) {
-							sendString += params.Item.medicine[i] + " and ";
+							sendString += params.Item.medicine[i] + " ";
 						}
+						if(params.Item.medicine.length!=1)
+						sendString += "and ";
 						sendString += params.Item.medicine[params.Item.medicine.length-1];
 						if(params.Item.medicine.length==0)
 						sendString = "You do not need any medications";
