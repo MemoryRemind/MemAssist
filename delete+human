@@ -1,0 +1,249 @@
+const AWS = require('aws-sdk');
+const docClient = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'});
+
+var params = {
+		Item: {
+			medicine: [],
+			userID: 1
+			    
+		},
+		TableName: 'medicalinfo',
+		Key: {
+			    "userID": 1
+			}
+
+	};
+
+exports.handler = function(event, context, callback) {
+	
+	// Initialize variables
+
+	docClient.get(params, function(err,data){
+		if(err){
+			callback(err,null);
+		}else{
+			callback(null,data);
+		}
+	});
+
+	var sendString = "";
+
+
+
+	// Try catch is for potential errors in code
+	try {
+
+		if (event.session.new) {
+			// New Session
+			console.log("NEW SESSION")
+		}
+
+		switch (event.request.type) {
+
+			case "LaunchRequest":
+				// Launch Request *** called if only invocation is called
+				console.log('LAUNCH REQUEST')
+				context.succeed(
+					generateResponse(
+						{},
+						buildSpeechletResponse(
+							"Hello, my name is Butler, I am here to assist you in your daily needs. Now with delete.",false)
+					)
+				)
+				break;
+
+
+
+			case "IntentRequest":
+				// Intent Request *** called if specified call is made to intent
+				console.log('INTENT REQUEST')
+
+				//checks specific intent requests
+				switch(event.request.intent.name) {
+				
+					case "StoreMedicineInfo": 
+					    params.Item.medicine[params.Item.medicine.length] = event.request.intent.slots.Drugs.value;
+						for(var i = 0; i < params.Item.medicine.length - 1; i++) {
+							sendString += params.Item.medicine[i] + " and ";
+						}
+						sendString += params.Item.medicine[params.Item.medicine.length-1];
+						context.succeed(
+							generateResponse(
+								{},
+								buildSpeechletResponse(sendString,false)
+							)
+						)
+						docClient.put(params, function(err, data) {
+	                    	if(err) {
+                			callback(err, null);
+                    		}else {
+                    			callback(null, data);
+	                    	}
+	                    });
+						break;
+
+					case "GetMedicineInfo":
+						docClient.get(params, function(err,data){
+							if(err){
+								callback(err,null);
+							}else{
+								callback(null,data);
+							}
+						});
+						for(var k = 0; k < params.Item.medicine.length - 1; k++) {
+							sendString += params.Item.medicine[k] + " and ";
+						}
+						sendString += params.Item.medicine[params.Item.medicine.length-1];
+						context.succeed(
+							generateResponse(
+								{},
+								buildSpeechletResponse(sendString,false)
+							)
+						)
+						break;
+
+					case "DeleteMedicineInfo":
+						docClient.get(params, function(err, data) {
+							if(err){
+								callback(err,null);
+							}else{
+								callback(null,data);
+							}
+						});
+
+						var d = params.Item.medicine.indexOf(event.request.intent.slots.Drugs.value);
+
+						var n = [];
+
+						var deleted = params.Item.medicine[d];
+
+						for (var j = 0; j < params.Item.medicine.length; j++) {
+							if (j != d) n.push(params.Item.medicine[j]);
+						}
+
+						params.Item.medicine = n;
+
+						docClient.put(params, function(err, data) {
+	                    	if(err) {
+                			callback(err, null);
+                    		} else {
+                    			callback(null, data);
+	                    	}
+	                    });
+
+	                    context.succeed(
+							generateResponse(
+								{},
+								buildSpeechletResponse("Deleted " + deleted, false)
+							)
+						)
+			            break;
+			           
+			        case "SetReminder":
+			            var time = event.request.intent.slots.Time;
+			            var med = event.request.intent.slots.Drugs;
+			            var sendString = "";
+			            
+			            if (time && med) {
+			                var h = Number(time.value.split(0, 2));
+			                var m = Number(time.value.split(3, 5));
+			                //remind(h, m, event.request.intent, callback);
+			                sendString = "Set reminder to take " + med.value + " at " + time.value;
+			            } else {
+			                sendString = "You will have to be more specific.";
+			            }
+			            context.succeed(
+							generateResponse(
+								{},
+								buildSpeechletResponse(sendString,false)
+							)
+						)
+						break;
+						
+					case "AddPerson":
+					    var person = event.request.intent.slots.Person;
+					    var sendString = "";
+					    if (person) {
+					        var entry = {
+                        		Item: {
+                        		    name: "" + person.value
+                        		},
+                        		TableName: 'people'
+                        	};
+					        
+					        docClient.put(entry, function(err, data) {
+    	                    	if (err) {
+                        		    callback(err, null);
+                                } else {
+                            		callback(null, data);
+    	                    	}
+    	                    });
+					        sendString = "Added " + person.value + ".";
+					    } else {
+					        sendString = "I do not understand.";
+					    }
+					    context.succeed (
+							generateResponse(
+								{},
+								buildSpeechletResponse(sendString,false)
+							)
+						)
+					    break;
+					    
+					case "UpdatePerson":
+					    var person = event.request.intent.slots.Person;
+					    var sendString = "";
+					    break;
+					    
+					case "ListPerson":
+			            var person = event.request.intent.slots.Person;
+					    var sendString = "";
+					default:
+					    context.succeed(
+							generateResponse(
+								{},
+								buildSpeechletResponse("I'm sorry. I do not understand. Please try again",true)
+							)
+						)
+						//throw "Invalid intent"
+				}
+
+				break;
+
+
+
+			case "SessionEndedRequest":
+				// Session Ended Request *** called if code is exited
+				console.log('SESSION ENDED REQUEST')
+				break;
+
+			default:
+				context.fail('INVALID REQUEST TYPE: ${event.request.type}')
+		}
+
+
+
+	} catch(error) { context.fail('Exception: ${error}') }
+	
+}
+
+// Helpers
+buildSpeechletResponse = (outputText, shouldEndSession) => {
+
+	return {
+		outputSpeech: {
+			type: "PlainText",
+			text: outputText
+		},
+		shouldEndSession: shouldEndSession
+	}
+}
+
+generateResponse = (sessionAttributes, speechletResponse) => {
+
+	return {
+		version: "1.0",
+		sessionAttributes: sessionAttributes,
+		response: speechletResponse
+	}
+}
