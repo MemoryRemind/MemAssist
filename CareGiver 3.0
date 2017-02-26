@@ -3,7 +3,7 @@ exports.handler = (event, context) => {
 	// Initialize variables
 	var medicine = [];
 	var sendString = "";
-
+	var tookMedicine = false;
 	// Try catch is for potential errors in code
 	try {
 
@@ -26,7 +26,17 @@ exports.handler = (event, context) => {
 				)
 				break;
 
-
+			
+			case "TookMedicine":
+                        sendString = tookMedicine? "You have taken your medicine": "You have not taken your medicine"
+                        context.succeed(
+				generateResponse(
+				{},
+				buildSpeechletResponse(sendString,true)
+				)
+			)
+			break;
+			
 
 			case "IntentRequest":
 				// Intent Request *** called if specified call is made to intent
