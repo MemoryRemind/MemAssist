@@ -11,3 +11,4 @@ Any proposed new features should add to functionallity in a meaningful way. Pull
 Follow commom etiquite for coding conventions.
 
 If you want more info, feel free to post an issue or write any of us an email.
+Useful Info: https://docs.google.com/document/d/1M4-QP0pF0m3RgakiCWyWTagvGZ_2Mh0YqBPXBMavmg0/edit?usp=sharing
