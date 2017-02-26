@@ -13,6 +13,8 @@ Coming Soon:
 
 +We seek to use the Twilio library to be able to automatically schedule calls with relatives. This is especially important because patients suffering from memory loss need social interaction to slow down the memory loss.
 
++We seek to link to a medical database to support a much greater number of drug names
+
 Build Instructions:
 
 1) Create Amazon Work Station account
@@ -31,7 +33,7 @@ Build Instructions:
 
 8) Create function, take note of ARN in top right corner
 
-9) Log into Amazon Developer console (same account as for AWS)
+9) Log into Amazon Developer Console (same account as for AWS)
 
 10) Click on Alexa tab
 
