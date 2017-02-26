@@ -164,6 +164,17 @@ exports.handler = function(event, context, callback) {
 							if (j != d) n.push(params.Item.medicine[j]);
 						}
 
+                        if (n.length==params.Item.medicine){
+                            deleted = "You are not taking that medication";
+                            context.succeed(
+							    generateResponse(
+								{},
+								buildSpeechletResponse(deleted, false)
+							    )
+						    )
+                        }
+                        
+                        else{
 						params.Item.medicine = n;
 
 						docClient.put(params, function(err, data) {
@@ -173,13 +184,14 @@ exports.handler = function(event, context, callback) {
                     			callback(null, data);
 	                    	}
 	                    });
-
+                        deleted = "I have removed " + deleted + " from the list of drugs you need"
 	                    context.succeed(
 							generateResponse(
 								{},
-								buildSpeechletResponse("Deleted " + deleted, false)
+								buildSpeechletResponse(deleted, false)
 							)
 						)
+                        }
 			            break;
                     
 					default:
