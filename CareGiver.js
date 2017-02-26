@@ -198,7 +198,7 @@ exports.handler = function(event, context, callback) {
 					    context.succeed(
 							generateResponse(
 								{},
-								buildSpeechletResponse("I'm sorry. I do not understand. Please try again",true)
+								buildSpeechletResponse("I'm sorry. I do not understand. Please try again",false)
 							)
 						)
 						//throw "Invalid intent"
@@ -211,6 +211,12 @@ exports.handler = function(event, context, callback) {
 			case "SessionEndedRequest":
 				// Session Ended Request *** called if code is exited
 				console.log('SESSION ENDED REQUEST')
+				context.succeed(
+							generateResponse(
+								{},
+								buildSpeechletResponse("Shutting down",true)
+							)
+						)
 				break;
 
 			default:
