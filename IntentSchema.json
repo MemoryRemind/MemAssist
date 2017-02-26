@@ -10,10 +10,22 @@
       		]
   	},
     {
-    	"intent": "GetMedicineInfo" 
+    	"intent": "GetMedicineInfo"
     },
     {
-      "intent": "TookMedicine"
+    	"intent": "TookMedicine"
+    },
+    {
+    	"intent": "checkMedStatus"
+    },
+    {
+    	"intent": "DeleteMedicineInfo",
+      		"slots": [
+        		{
+          			"name": "Drugs",
+          			"type": "medication"
+        		}
+      		]
     }
   ]
 }
