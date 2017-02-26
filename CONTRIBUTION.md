@@ -9,3 +9,5 @@ Reporting bugs:
 Any proposed new features should add to functionallity in a meaningful way. Pull requests are always welcome. If you contribute your name will be credited in CONTRIBUTORS.ms
 
 Follow commom etiquite for coding conventions.
+
+If you want more info, feel free to post an issue or write any of us an email.
